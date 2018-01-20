@@ -11,12 +11,12 @@ html, body {
   align-items: center;
   justify-content: center;
 }
-.text{
+.endGameText{
   text-align: center;
   z-index: 1;
   font-family: '8bit';
 }
-.prompt-text{
+.endGamePrompt-Text{
   color: gray;
   font-size: 30px;
 }
@@ -92,7 +92,7 @@ button.gray:hover{
     to {background-position:10000px 0;}
 }
 
-.stars, .twinkling, .clouds {
+.endGameStars, .endGameTwinkling, .endGameClouds {
   position:absolute;
   top:0;
   left:0;
@@ -103,11 +103,11 @@ button.gray:hover{
   display:block;
   z-index: -1;
 }
-.stars {
+.endGameStars {
   background:#000 url(images/stars.png) repeat top center;
   z-index:0;
 }
-.twinkling{
+.endGameTwinkling{
   background:transparent url(images/twinkling.png) repeat top center;
   z-index:1;
   -moz-animation:move-twink-back 200s linear infinite;
@@ -116,7 +116,7 @@ button.gray:hover{
   -webkit-animation:move-twink-back 200s linear infinite;
   animation:move-twink-back 200s linear infinite;
 }
-.clouds{
+.endGameClouds{
     background:transparent url(images/clouds.png) repeat top center;
     z-index:3;
   -moz-animation:move-clouds-back 200s linear infinite;
