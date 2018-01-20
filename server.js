@@ -75,8 +75,8 @@ function sendCodeHelper(code, client) {
     
     clientToIosMap[compClient] = client.id;
     iosToClientMap[client.id] = compClient;
-    io.to(client.id).emit("codeAccepted", true);
     console.log("connected");
+    io.to(compClient).emit("phoneConnected");
     return true;
 }
 
@@ -84,10 +84,13 @@ function actionHelper(value, client) {
     console.log(value);
     
     //socket ids are unique
+
+    //send to computer
     if (client.id in iosToClientMap) {
 	io.to(iosToClientMap[client.id]).emit("sendAction", value);
     }
-    
+
+    //send to phone
     if (client.id in clientToIosMap) {
 	io.to(clientToIosMap[client.id]).emit("sendAction", value);
 	
