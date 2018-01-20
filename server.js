@@ -33,7 +33,9 @@ io.on('connection' , function(client) {
 	sendCodeHelper(code, client);	
     });
 
-    client.on('move', function(value
+    client.on('sendAction', function(value) {
+	actionHelper(value, client);
+    });
 
     console.log("client connected");
 });
@@ -70,4 +72,18 @@ function sendCodeHelper(code, client) {
     
     clientToIosMap[compClient] = client.id;
     iosToClientMap[client.id] = compClient;
+}
+
+function actionHelper(value, client) {
+    console.log(value);
+    
+    //socket ids are unique
+    if (client in iosToClientMap) {
+	io.to(iosToClientMap[client.id]).emit("sendAction", value);
+    }
+    
+    if (client in clientToIosMap) {
+	io.to(clientToIosMap[client.id]).emit("sendAction", value);
+	
+    }
 }
