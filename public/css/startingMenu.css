@@ -19,7 +19,7 @@ html, body {
   color: white;
   font-size: 50px;
 }
-
+/* animation credit: http://www.script-tutorials.com/night-sky-with-twinkling-stars/ */
 @keyframes move-twink-back {
     from {background-position:0 0;}
     to {background-position:-10000px 5000px;}
