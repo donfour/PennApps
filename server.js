@@ -33,6 +33,8 @@ io.on('connection' , function(client) {
 	sendCodeHelper(code, client);	
     });
 
+    client.on('move', function(value
+
     console.log("client connected");
 });
 
@@ -52,7 +54,7 @@ function generateCode() {
 }
 
 function sendCodeHelper(code, client) {
-    console.log("sendCode event triggered");
+    console.log("sendCode event triggered:" + code);
     if (!(code in connections)) {
 	return;
     }
