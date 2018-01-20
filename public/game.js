@@ -28,6 +28,9 @@ function setHandlers() {
 }
 
 setHandlers();
+
+socket.emit("requestCode");
+
 var lineHeight = 40;
 
 var canvas = document.getElementById("canvas"),
