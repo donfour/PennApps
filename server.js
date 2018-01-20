@@ -29,26 +29,8 @@ io.on('connection' , function(client) {
 	io.to(client.id).emit('neededCode' , code);
     });
 
-    //modularize later
     client.on('sendCode', function(code) {
-	console.log("sendCode event triggered");
-	if (!(code in connections)) {
-	    return;
-	}
-
-	compClient = connections[code];
-	if (clientToIosMap[compClient] != undefined) {
-	    return;
-	}
-
-	if (iosToClientMap[client.id] != undefined) {
-	    return;
-	}
-
-	clientToIosMap[compClient] = client.id;
-	iosToClientMap[client.id] = compClient;
-	
-	
+	sendCodeHelper(code, client);	
     });
 
     console.log("client connected");
@@ -67,4 +49,23 @@ function generateCode() {
     }
 
     generateCode();
+}
+
+function sendCodeHelper(code, client) {
+    console.log("sendCode event triggered");
+    if (!(code in connections)) {
+	return;
+    }
+    
+    compClient = connections[code];
+    if (clientToIosMap[compClient] != undefined) {
+	return;
+    }
+    
+    if (iosToClientMap[client.id] != undefined) {
+	return;
+    }
+    
+    clientToIosMap[compClient] = client.id;
+    iosToClientMap[client.id] = compClient;
 }
