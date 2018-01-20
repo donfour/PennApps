@@ -4,6 +4,8 @@ var socket = io();
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
 
+var gameStarted = false;
+var Draw;
 function setHandlers() {
     socket.on("getCode", function(code) {
 	document.getElementById("code").innerHTML = code;
@@ -11,7 +13,7 @@ function setHandlers() {
 
     socket.on("sendAction", function(value) {
 
-	if (player.isDead) return;
+	if (player.isDead || !gameStarted) return;
 
 
 	if (value == "left") {
@@ -75,15 +77,28 @@ manager.downloadAll(function() {
 
 });
 
+
+function end() {
+    gameStarted = false;
+    var endMenu = document.getElementsByClassName("end");
+        for (var el of endMenu)
+            el.style.display = "block";
+    canvas.style.display = "none";
+    clearInterval(Draw);
+    document.getElementById("score").innerHTML = score;
+}
+
+
 function start()
 {
+    gameStarted = true;
     player = new Player(250, lineHeight * 13);
 
     for (var i = 0; i < 11; i++)
         enemies[i] = new Column(i + 1, 3);
 
 
-    var Draw = setInterval(function() {
+    Draw = setInterval(function() {
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -178,6 +193,7 @@ function start()
 
             if (!player.isDead && enemyShots[i].rect.Intersects(player.rect))
             {
+		socket.emit("sendAction", "vibrate");
                 player.isDead = true;
                 lives--;
                 deaths.push(new PlayerDeath(player.rect.x, player.rect.y - player.rect.height/2));
@@ -227,7 +243,7 @@ function start()
 
         if (lives <= 0)
         {
-            // alert("Game Over");
+            end();
         }
 
     }, 33);
