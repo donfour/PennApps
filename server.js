@@ -26,7 +26,7 @@ io.on('connection' , function(client) {
     client.on('requestCode' , function() {
 	var code = generateCode();
 	connections[code] = client.id;
-	io.to(client.id).emit('neededCode' , code);
+	io.to(client.id).emit('getCode' , code);
     });
 
     client.on('sendCode', function(code) {
@@ -72,6 +72,7 @@ function sendCodeHelper(code, client) {
     
     clientToIosMap[compClient] = client.id;
     iosToClientMap[client.id] = compClient;
+    console.log("connected");
 }
 
 function actionHelper(value, client) {
