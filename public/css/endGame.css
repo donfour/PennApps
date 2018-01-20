@@ -2,7 +2,7 @@
     font-family: '8bit';
     src: url('../font/8-Bit-Madness.ttf');
 }
-html{
+/*html{
   background-color: black;
 }
 html, body {
@@ -10,17 +10,17 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.endGameText{
+}*/
+.endText{
   text-align: center;
   z-index: 1;
   font-family: '8bit';
 }
-.endGamePrompt-Text{
+.endPrompt-Text{
   color: gray;
   font-size: 30px;
 }
-.score{
+.endScore{
   color: white;
   font-size: 70px;
 }
@@ -75,7 +75,7 @@ button.gray:hover{
     from {background-position:0 0;}
     to {background-position:-10000px 5000px;}
 }
-@keyframes move-clouds-back {
+/*@keyframes move-clouds-back {
     from {background-position:0 0;}
     to {background-position:10000px 0;}
 }
@@ -90,9 +90,9 @@ button.gray:hover{
 @-ms-keyframes move-clouds-back {
     from {background-position: 0;}
     to {background-position:10000px 0;}
-}
+}*/
 
-.endGameStars, .endGameTwinkling, .endGameClouds {
+.endStars, .endTwinkling {
   position:absolute;
   top:0;
   left:0;
@@ -103,11 +103,11 @@ button.gray:hover{
   display:block;
   z-index: -1;
 }
-.endGameStars {
+.endStars {
   background:#000 url(images/stars.png) repeat top center;
   z-index:0;
 }
-.endGameTwinkling{
+.endTwinkling{
   background:transparent url(images/twinkling.png) repeat top center;
   z-index:1;
   -moz-animation:move-twink-back 200s linear infinite;
@@ -116,7 +116,7 @@ button.gray:hover{
   -webkit-animation:move-twink-back 200s linear infinite;
   animation:move-twink-back 200s linear infinite;
 }
-.endGameClouds{
+/*.endClouds{
     background:transparent url(images/clouds.png) repeat top center;
     z-index:3;
   -moz-animation:move-clouds-back 200s linear infinite;
@@ -124,4 +124,4 @@ button.gray:hover{
   -o-animation:move-clouds-back 200s linear infinite;
   -webkit-animation:move-clouds-back 200s linear infinite;
   animation:move-clouds-back 200s linear infinite;
-}
+}*/

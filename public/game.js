@@ -1,6 +1,9 @@
 
 var socket = io();
 
+var canvas = document.getElementById("canvas"),
+    ctx = canvas.getContext("2d");
+
 function setHandlers() {
     socket.on("getCode", function(code) {
 	document.getElementById("code").innerHTML = code;
@@ -10,7 +13,7 @@ function setHandlers() {
 
 	if (player.isDead) return;
 
-      
+
 	if (value == "left") {
 	    player.left();
 	}
@@ -23,7 +26,16 @@ function setHandlers() {
 	    player.shoot();
 	}
 
-	
+
+    });
+
+    socket.on("phoneConnected", function() {
+        var startMenu = document.getElementsByClassName("start");
+        for (var el of startMenu)
+            el.style.display = "none";
+
+        canvas.style.display = "block";
+        start();
     });
 }
 
@@ -32,9 +44,6 @@ setHandlers();
 socket.emit("requestCode");
 
 var lineHeight = 40;
-
-var canvas = document.getElementById("canvas"),
-    ctx = canvas.getContext("2d");
 
 var manager = new AssetManager();
 var images = [
@@ -218,7 +227,7 @@ function start()
 
         if (lives <= 0)
         {
-            alert("Game Over");
+            // alert("Game Over");
         }
 
     }, 33);

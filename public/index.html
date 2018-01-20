@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <title>Space Invaders</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <link rel="stylesheet" href="./css/startingMenu.css">
     <link rel="stylesheet" href="./css/endGame.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
     <script type="text/javascript" src=
 	    "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.2/socket.io.js">
     </script>
@@ -14,42 +14,35 @@
     <script type="text/javascript" src="enemy.js"></script>
   </head>
   <body>
-    <div id = "start_menu">
-      <div class="stars"></div>
-      <div class="twinkling"></div>
-      <div class="clouds"></div>
-      
-      <div class="text">
-	<div class="logo"><img src="./css/images/SpaceInvadersLogo.png" alt="Space Invader 2018" height="500"></div>
-	<div class="prompt-text">Enter code on phone to get started:</div>
-	<div id ="code" class="code"></div>
-      </div>
-    </div>
+      <div class="stars start"></div>
+      <div class="twinkling start"></div>
+      <div class="clouds start"></div>
 
-    
+      <div class="text start">
+    	<div class="logo"><img src="./css/images/SpaceInvadersLogo.png" alt="Space Invader 2018" height="500"></div>
+    	<div class="prompt-text">Enter code on phone to get started:</div>
+    	<div id ="code" class="code"></div>
+      </div>
+
+
     <canvas id="canvas" width="600px" height="600px">
       Your browser does not support HTML5 elements. Please update to a newer version or download a modern browser such as Chrome or Firefox.
     </canvas>
 
-    <div id="end_menu">
-      <div class="stars"></div>
-      <div class="twinkling"></div>
-      
-      <div class="text">
-	<div class="prompt-text">Score:</div>
-	<div class="score">123</div>
-	
-	<div class="buttons">
-          <button class="red">Retry</button>
-          <button class="gray">Github</button>
-	</div>
-      
-      </div>
-    </div>
-    
+      <div class="endStars end"></div>
+      <div class="endTwinkling end"></div>
 
-    
-    
+      <div class="endText end">
+    	<div class="endPrompt-Text end">Score:</div>
+    	<div class="score end">123</div>
+
+    	<div class="buttons">
+              <button class="red">Retry</button>
+              <button class="gray">Github</button>
+    	</div>
+
+      </div>
+
     <script type="text/javascript" src="game.js"></script>
   </body>
 </html>
