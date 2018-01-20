@@ -209,7 +209,7 @@ function start()
         }
 
         // DISPLAY SCORE
-        ctx.font = "30px Geo";
+        ctx.font = "30px 8bit";
         ctx.fillStyle = "white";
         ctx.fillText("SCORE", 50, 35);
         ctx.fillStyle = "#00FD10";
