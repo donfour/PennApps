@@ -41,7 +41,7 @@ function setHandlers() {
         start();
     });
 
-    socket.on("phoneDisconnected"), function() {
+    socket.on("phoneDisconnected", function() {
 	gameStarted = false;
 	
 	var startMenu = document.getElementsByClassName("start");
