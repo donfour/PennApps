@@ -18,26 +18,30 @@ app.get('/', function(request, response) {
     response.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/newgame', function(request, response) {
+    response.sendFile(__dirname + '/public/startingMenu.html');
+});
+
 
 io.on('connection' , function(client) {
-     
+
     client.on('requestCode' , function() {
-	var code = generateCode();
-	connections[code] = client.id;
-	io.to(client.id).emit('getCode' , code);
+    	var code = generateCode();
+    	connections[code] = client.id;
+    	io.to(client.id).emit('getCode' , code);
     });
 
     client.on('sendCode', function(code) {
-	var accepted = sendCodeHelper(code, client);
-	io.to(client.id).emit("codeAccepted", accepted);
+    	var accepted = sendCodeHelper(code, client);
+    	io.to(client.id).emit("codeAccepted", accepted);
     });
 
     client.on('sendAction', function(value) {
-	actionHelper(value, client);
+    	actionHelper(value, client);
     });
 
     client.on('disconnect', function() {
-	disconnectHelper(client);
+	     disconnectHelper(client);
     });
 
     console.log("client connected");
@@ -48,7 +52,7 @@ http.listen(port, function() {
     console.log('listening on *:' + port);
 });
 
-//make this better later (need to at least 
+//make this better later (need to at least
 function generateCode() {
     var number = Math.floor(Math.random() * codeRange);
     if (!(number in connections)) {
@@ -60,19 +64,19 @@ function generateCode() {
 
 function sendCodeHelper(code, client) {
     console.log("sendCode event triggered:" + code);
-    if (!(code in connections)) {	
+    if (!(code in connections)) {
 	return false;
     }
-    
+
     compClient = connections[code];
     if (compClient in clientToIosMap) {
 	return false;
     }
-    
+
     if (client.id in iosToClientMap) {
 	return false;
     }
-    
+
     clientToIosMap[compClient] = client.id;
     iosToClientMap[client.id] = compClient;
     console.log("connected");
@@ -82,7 +86,7 @@ function sendCodeHelper(code, client) {
 
 function actionHelper(value, client) {
     console.log(value);
-    
+
     //socket ids are unique
 
     //send to computer
@@ -93,7 +97,7 @@ function actionHelper(value, client) {
     //send to phone
     if (client.id in clientToIosMap) {
 	io.to(clientToIosMap[client.id]).emit("sendAction", value);
-	
+
     }
 }
 
