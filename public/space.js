@@ -15,6 +15,7 @@ socket.on("sendAction", function(value) {
     if (value == 'right') {
 	position[1] += 1;
     }
+    drawCircle();
 });
 
 socket.emit("requestCode");
