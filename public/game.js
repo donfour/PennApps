@@ -3,7 +3,7 @@ var socket = io();
 
 function setHandlers() {
     socket.on("getCode", function(code) {
-	console.log(code);
+	document.getElementById("code").innerHTML = code;
     });
 
     socket.on("sendAction", function(value) {
