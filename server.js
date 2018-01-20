@@ -22,13 +22,14 @@ app.get('/', function(request, response) {
 
 
 io.on('connection' , function(client) {
-    
+     
     client.on('requestCode' , function() {
 	var code = generateCode();
 	connections[code] = client.id;
 	io.to(client.id).emit('neededCode' , code);
     });
 
+    //modularize later
     client.on('sendCode', function(code) {
 	console.log("sendCode event triggered");
 	if (!(code in connections)) {
@@ -36,8 +37,17 @@ io.on('connection' , function(client) {
 	}
 
 	compClient = connections[code];
+	if (clientToIosMap[compClient] != undefined) {
+	    return;
+	}
 
-	//if (compClient == undefined || 
+	if (iosToClientMap[client.id] != undefined) {
+	    return;
+	}
+
+	clientToIosMap[compClient] = client.id;
+	iosToClientMap[client.id] = compClient;
+	
 	
     });
 
