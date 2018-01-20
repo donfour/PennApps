@@ -42,19 +42,8 @@ function setHandlers() {
     });
 
     socket.on("phoneDisconnected", function() {
-	gameStarted = false;
-	
-	var startMenu = document.getElementsByClassName("start");
-        for (var el of startMenu)
-            el.style.display = "block";
-
-	var endMenu = document.getElementsByClassName("end");
-        for (var el of endMenu)
-            el.style.display = "none";
-
-	canvas.style.display = "none";	
 	alert("Sorry.  Your phone seems to have disconnected");
-	
+	window.location.href = "";
     });
 }
 
