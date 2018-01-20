@@ -77,7 +77,8 @@ var player,
     enemyShots,
     dir,
     score,
-    lives;
+    lives,
+    countSinceStart;
 
 function init() {
     player = new Player(250, lineHeight * 13);
@@ -88,7 +89,7 @@ function init() {
     dir = "right";
     score = 0;
     lives = 3;
-
+    countSinceStart = 0;
 }
 
 manager.downloadAll(function() {
@@ -224,12 +225,16 @@ function start()
             draw(enemyShots[i]);
         }
 
-        var random = Math.random();
-        if (!player.isDead && random < 0.02)
+        countSinceStart++;
+        if (countSinceStart > 100)
         {
-            var index = Math.floor(Math.random() * enemies.length),
-                enemy = enemies[index].enemies[enemies[index].enemies.length - 1];
-            enemyShots.push(new Shot(enemy.rect.x, enemy.rect.y));
+            var random = Math.random();
+            if (!player.isDead && random < 0.02)
+            {
+                var index = Math.floor(Math.random() * enemies.length),
+                    enemy = enemies[index].enemies[enemies[index].enemies.length - 1];
+                enemyShots.push(new Shot(enemy.rect.x, enemy.rect.y));
+            }
         }
 
         // DEATHS
