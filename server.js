@@ -8,6 +8,11 @@ var codeRange = 100000;
 
 var connections = {};
 
+var iosToClientMap = {};
+
+var clientToIosMap ={};
+
+
 
 app.use(express.static('public'));
 
@@ -25,6 +30,15 @@ io.on('connection' , function(client) {
     });
 
     client.on('sendCode', function(code) {
+	console.log("sendCode event triggered");
+	if (!(code in connections)) {
+	    return;
+	}
+
+	compClient = connections[code];
+
+	//if (compClient == undefined || 
+	
     });
 
     console.log("client connected");
