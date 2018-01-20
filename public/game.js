@@ -64,14 +64,28 @@ var images = [
 for (var i=0; i < images.length; i++)
     manager.queueDownload("img/" + images[i] + ".png");
 
-var player = new Player(250, lineHeight * 13),
-    background = new Rectangle(0, 0, canvas.width, canvas.height, new Color(0, 0, 0)),
-    enemies = [],
-    deaths = [],
-    enemyShots = [],
-    dir = "right",
-    score = 0,
+var player,
+    background,
+    enemies,
+    deaths,
+    enemyShots,
+    dir,
+    score,
+    lives;
+
+function init() {
+    player = new Player(250, lineHeight * 13);
+    background = new Rectangle(0, 0, canvas.width, canvas.height, new Color(0, 0, 0));
+    enemies = [];
+    deaths = [];
+    enemyShots = [];
+    dir = "right";
+    score = 0;
     lives = 3;
+    
+}
+
+init();
 
 manager.downloadAll(function() {
 
@@ -86,6 +100,15 @@ function end() {
     canvas.style.display = "none";
     clearInterval(Draw);
     document.getElementById("score").innerHTML = score;
+}
+
+function reset() {
+    var endMenu = document.getElementsByClassName("end");
+        for (var el of endMenu)
+            el.style.display = "none";
+    canvas.style.display = "block";
+    init();
+    start();
 }
 
 
