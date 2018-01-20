@@ -23,7 +23,7 @@ function drawCircle() {
     var c=document.getElementById("game");
     var ctx=c.getContext("2d");
     ctx.beginPath();
-    context.strokeStyle = '#ff0000';
+    ctx.strokeStyle = '#ff0000';
     ctx.arc(position[0],position[1],radius,0,2*Math.PI);
     ctx.stroke();
 }
@@ -33,7 +33,7 @@ function clearCircle() {
     var ctx=c.getContext("2d");
     ctx.beginPath();
     ctx.arc(position[0],position[1],radius,0,2*Math.PI);
-    context.strokeStyle = '#ffffff';
+    ctx.strokeStyle = '#ffffff';
     ctx.stroke();
 }
 
