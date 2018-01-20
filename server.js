@@ -12,7 +12,7 @@ var connections = {};
 app.use(express.static('public'));
 
 app.get('/', function(request, response) {
-    res.sendFile(__dirname + '/public/space.html');
+    response.sendFile(__dirname + '/public/space.html');
 });
 
 
