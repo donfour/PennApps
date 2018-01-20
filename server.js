@@ -6,7 +6,7 @@ var port = process.env.PORT || 3000;
 
 var codeRange = 100000;
 
-var waitingConnections = {};
+var connections = {};
 
 
 app.use(express.static('public'));
@@ -20,11 +20,14 @@ io.on('connection' , function(client) {
     
     client.on('requestCode' , function() {
 	var code = generateCode();
+	connections[code] = client.id;
 	io.to(client.id).emit('neededCode' , code);
     });
 
     client.on('sendCode', function(code) {
     });
+
+    console.log("client connected");
 });
 
 
@@ -35,7 +38,7 @@ http.listen(port, function() {
 //make this better later (need to at least 
 function generateCode() {
     var number = Math.floor(Math.random() * codeRange);
-    if (!(number in waitingConnections)) {
+    if (!(number in connections)) {
 	return number;
     }
 
