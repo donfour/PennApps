@@ -82,7 +82,7 @@ function init() {
     dir = "right";
     score = 0;
     lives = 3;
-    
+
 }
 
 init();
@@ -195,14 +195,6 @@ function start()
         }
 
         // ENEMY FIRE
-        var random = Math.random();
-        if (!player.isDead && random < 0.02)
-        {
-            var index = Math.floor(Math.random() * enemies.length),
-                enemy = enemies[index].enemies[enemies[index].enemies.length - 1];
-            enemyShots.push(new Shot(enemy.rect.x, enemy.rect.y));
-        }
-
         for (var i = 0; i < enemyShots.length; i++)
         {
             enemyShots[i].rect.y += enemyShots[i].speed;
@@ -214,9 +206,9 @@ function start()
                 continue;
             }
 
-            if (!player.isDead && enemyShots[i].rect.Intersects(player.rect))
+            if (!player.isDead && enemyShots[i].rect.Intersects(player.hitbox))
             {
-		socket.emit("sendAction", "vibrate");
+		        socket.emit("sendAction", "vibrate");
                 player.isDead = true;
                 lives--;
                 deaths.push(new PlayerDeath(player.rect.x, player.rect.y - player.rect.height/2));
@@ -226,6 +218,14 @@ function start()
             }
 
             draw(enemyShots[i]);
+        }
+
+        var random = Math.random();
+        if (!player.isDead && random < 0.02)
+        {
+            var index = Math.floor(Math.random() * enemies.length),
+                enemy = enemies[index].enemies[enemies[index].enemies.length - 1];
+            enemyShots.push(new Shot(enemy.rect.x, enemy.rect.y));
         }
 
         // DEATHS
@@ -299,7 +299,7 @@ function draw(obj)
 
         // if (obj.hitbox)
         // {
-        //     ctx.fillStyle = "green";
+        //     ctx.fillStyle = "red";
         //     ctx.fillRect(obj.hitbox.x, obj.hitbox.y, obj.hitbox.width, obj.hitbox.height);
         // }
     }

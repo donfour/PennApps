@@ -19,7 +19,7 @@ Enemy = function(type, x, y)
     if (type == "invader1")
     {
         w = 64 / 3;
-        this.score = 10;
+        this.score = 40;
     }
     else if (type == "invader2")
     {
@@ -29,7 +29,7 @@ Enemy = function(type, x, y)
     else
     {
         w = 96 / 3;
-        this.score = 40;
+        this.score = 10;
     }
 
     var a = Math.abs(this.rect.width - w) / 2 + this.rect.x,
