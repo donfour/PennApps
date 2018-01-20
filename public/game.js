@@ -53,7 +53,7 @@ function setHandlers() {
             el.style.display = "none";
 
 	canvas.style.display = "none";	
-	
+	alert("Sorry.  Your phone seems to have disconnected");
 	
     });
 }
