@@ -13,7 +13,7 @@ socket.on("sendAction", function(value) {
 	position[0] -= 1;
     }
     if (value == 'right') {
-	position[1] += 1;
+	position[0] += 1;
     }
     drawCircle();
 });
@@ -36,6 +36,7 @@ function clearCircle() {
     ctx.arc(position[0],position[1],radius,0,2*Math.PI);
     ctx.strokeStyle = '#ffffff';
     ctx.stroke();
+    ctx.clearRect(0, 0, 500, 500);
 }
 
 
