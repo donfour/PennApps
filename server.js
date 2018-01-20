@@ -12,8 +12,6 @@ var iosToClientMap = {};
 
 var clientToIosMap ={};
 
-
-
 app.use(express.static('public'));
 
 app.get('/', function(request, response) {
@@ -36,6 +34,10 @@ io.on('connection' , function(client) {
 
     client.on('sendAction', function(value) {
 	actionHelper(value, client);
+    });
+
+    client.on('disconnect', function() {
+	disconnectHelper(client);
     });
 
     console.log("client connected");
@@ -63,12 +65,11 @@ function sendCodeHelper(code, client) {
     }
     
     compClient = connections[code];
-    if (clientToIosMap[compClient] != undefined) {
+    if (compClient in clientToIosMap) {
 	return false;
     }
     
-    if (iosToClientMap[client.id] != undefined) {
-	io.to(client.id).emit("codeAccepted", false);
+    if (client.id in iosToClientMap) {
 	return false;
     }
     
@@ -83,12 +84,38 @@ function actionHelper(value, client) {
     console.log(value);
     
     //socket ids are unique
-    if (client in iosToClientMap) {
+    if (client.id in iosToClientMap) {
 	io.to(iosToClientMap[client.id]).emit("sendAction", value);
     }
     
-    if (client in clientToIosMap) {
+    if (client.id in clientToIosMap) {
 	io.to(clientToIosMap[client.id]).emit("sendAction", value);
 	
+    }
+}
+
+function disconnectHelper(client) {
+    if (client.id in iosToClientMap) {
+	var computerId = iosToClientMap[client.id];
+	io.to(computerId).emit('phoneDisconnected');
+	delete iosToClientMap[client.id];
+	delete clientToIosMap[computerId];
+    }
+
+    if (client.id in clientToIosMap) {
+	var phoneId = clientToIosMap[client.id];
+	io.to(phoneId).emit('computerDisconnected');
+	delete clientToIosMap[client.id];
+	delete iosToClientMap[phoneId];
+	deleteCode(client.id); //optimize by creating other map
+    }
+}
+
+function deleteCode(computerId) {
+
+    for (var key in connections) {
+	if (connections[key] == computerId) {
+	    delete connections[key];
+	}
     }
 }
