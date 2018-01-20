@@ -30,7 +30,8 @@ io.on('connection' , function(client) {
     });
 
     client.on('sendCode', function(code) {
-	sendCodeHelper(code, client);	
+	var accepted = sendCodeHelper(code, client);
+	io.to(client.id).emit("codeAccepted", accepted);
     });
 
     client.on('sendAction', function(value) {
@@ -57,22 +58,25 @@ function generateCode() {
 
 function sendCodeHelper(code, client) {
     console.log("sendCode event triggered:" + code);
-    if (!(code in connections)) {
-	return;
+    if (!(code in connections)) {	
+	return false;
     }
     
     compClient = connections[code];
     if (clientToIosMap[compClient] != undefined) {
-	return;
+	return false;
     }
     
     if (iosToClientMap[client.id] != undefined) {
-	return;
+	io.to(client.id).emit("codeAccepted", false);
+	return false;
     }
     
     clientToIosMap[compClient] = client.id;
     iosToClientMap[client.id] = compClient;
+    io.to(client.id).emit("codeAccepted", true);
     console.log("connected");
+    return true;
 }
 
 function actionHelper(value, client) {
