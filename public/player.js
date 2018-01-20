@@ -3,6 +3,7 @@ Player = function(x, y)
     this.width = 90 / 3;
     this.height = 64 / 3;
     this.rect = new Rectangle(x, y, this.width, this.height, new Color(255, 0, 0));
+    this.hitbox = new Rectangle(x + 10, y + 10, this.width - 20, this.height - 20);
 
     this.speed = 10;
 
@@ -17,13 +18,19 @@ Player = function(x, y)
     this.left = function()
 	{
 		if (this.rect.x > 0)
+        {
 			this.rect.x -= this.speed;
+            this.hitbox.x -= this.speed;
+        }
 	};
 
     this.right = function()
 	{
 		if (this.rect.x + this.rect.width < canvas.width)
+        {
 			this.rect.x += this.speed;
+            this.hitbox.x += this.speed;
+        }
 	};
 
     this.shoot = function()
