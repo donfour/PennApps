@@ -1,3 +1,33 @@
+
+var socket = io();
+
+function setHandlers() {
+    socket.on("getCode", function(code) {
+	console.log(code);
+    });
+
+    socket.on("sendAction", function(value) {
+
+	if (player.isDead) return;
+
+      
+	if (value == "left") {
+	    player.left();
+	}
+
+	if (value == "right") {
+	    player.right();
+	}
+
+	if (value == "shoot") {
+	    player.shoot();
+	}
+
+	
+    });
+}
+
+setHandlers();
 var lineHeight = 40;
 
 var canvas = document.getElementById("canvas"),
@@ -40,31 +70,6 @@ function start()
     for (var i = 0; i < 11; i++)
         enemies[i] = new Column(i + 1, 3);
 
-    document.body.addEventListener("keydown", keyDown);
-
-    function keyDown(e)
-    {
-        var keyCode = e.keyCode || event.keyCode;
-
-        if (player.isDead) return;
-
-        // if (player.frame != "_blank_")
-        // {
-            switch (keyCode)
-            {
-                case 37:
-                    player.left();
-                    break;
-                case 39:
-                    player.right();
-                    break;
-                case 32:
-                    player.shoot();
-                    break;
-                default:
-            }
-        // }
-    }
 
     var Draw = setInterval(function() {
 
@@ -145,7 +150,6 @@ function start()
         {
             var index = Math.floor(Math.random() * enemies.length),
                 enemy = enemies[index].enemies[enemies[index].enemies.length - 1];
-            console.log("shot fired by " + index);
             enemyShots.push(new Shot(enemy.rect.x, enemy.rect.y));
         }
 
