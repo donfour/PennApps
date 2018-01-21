@@ -25,6 +25,8 @@ backgroundMusic.sound.loop = true;
 shootSound = new Sound("./sound/shoot.wav");
 hitSound = new Sound("./sound/hit.wav");
 deathSound = new Sound("./sound/death.wav");
+letterSound = new Sound("./sound/Collect_Point_01.mp3");
+allLettersSound = new Sound("./sound/Jingle_Win_00.mp3");
 
 
 var gameStarted = false;
@@ -347,6 +349,8 @@ function start()
                     {
                         letters[j].filled = true;
                         letters[j].frame = letters[j].fillFrame;
+                        letterSound.play();
+                        break;
                     }
                 }
                 fallingLetters.splice(i, 1);
@@ -361,6 +365,7 @@ function start()
             {
                 letters = [new Letter("P"), new Letter("E"), new Letter("N"), new Letter("N"), new Letter("A"), new Letter("P"), new Letter("P"), new Letter("S")];
                 score += 1700;
+                allLettersSound.play();
             }
         }
 
