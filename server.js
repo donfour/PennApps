@@ -18,10 +18,6 @@ app.get('/', function(request, response) {
     response.sendFile(__dirname + '/public/index.html');
 });
 
-app.get('/newgame', function(request, response) {
-    response.sendFile(__dirname + '/public/startingMenu.html');
-});
-
 
 io.on('connection' , function(client) {
 
