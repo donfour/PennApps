@@ -4,8 +4,8 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
 
-var codeRange = 100000;
-
+var codeStart = 100000
+var codeFinal = 999999
 var connections = {};
 
 var iosToClientMap = {};
@@ -16,10 +16,6 @@ app.use(express.static('public'));
 
 app.get('/', function(request, response) {
     response.sendFile(__dirname + '/public/index.html');
-});
-
-app.get('/newgame', function(request, response) {
-    response.sendFile(__dirname + '/public/startingMenu.html');
 });
 
 
@@ -54,7 +50,8 @@ http.listen(port, function() {
 
 //make this better later (need to at least
 function generateCode() {
-    var number = Math.floor(Math.random() * codeRange);
+    var number = Math.floor(Math.random() * (codeFinal - codeStart + 1)) +
+	codeStart;
     if (!(number in connections)) {
 	return number;
     }
