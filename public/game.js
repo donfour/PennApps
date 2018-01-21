@@ -88,7 +88,17 @@ var images = [
     "invader3Position1",
     "invader3Position2",
     "invaderDestroyed",
-    "killedGreenShip"
+    "killedGreenShip",
+    "A",
+    "A_placeholder",
+    "E",
+    "E_placeholder",
+    "N",
+    "N_placeholder",
+    "P",
+    "P_placeholder",
+    "S",
+    "S_placeholder"
 ];
 
 for (var i=0; i < images.length; i++)
@@ -102,7 +112,9 @@ var player,
     dir,
     score,
     lives,
-    countSinceStart;
+    countSinceStart,
+    letters,
+    fallingLetters;
 
 function init() {
     player = new Player(250, lineHeight * 13);
@@ -114,6 +126,8 @@ function init() {
     score = 0;
     lives = 3;
     countSinceStart = 0;
+    letters = [new Letter("P"), new Letter("E"), new Letter("N"), new Letter("N"), new Letter("A"), new Letter("P"), new Letter("P"), new Letter("S")];
+    fallingLetters = [];
 }
 
 manager.downloadAll(function() {
@@ -211,6 +225,7 @@ function start()
                     for (var j = 0; j < col.enemies.length; j++)
                     {
                         var e = col.enemies[j];
+                        // shot hits enemy
                         if (player.shot.rect.Intersects(e.hitbox))
                         {
                             hitSound.play();
@@ -220,17 +235,38 @@ function start()
                                 enemies.splice(i, 1);
                             player.shot = null;
                             score += e.score;
+
+                            var random = Math.random();
+                            if (random < 0.5)
+                            {
+                                random = Math.random();
+                                var letter;
+                                if (random < 0.2)
+                                    letter = "A";
+                                else if (random < 0.4)
+                                    letter = "E";
+                                else if (random < 0.6)
+                                    letter = "N"
+                                else if (random < 0.8)
+                                    letter = "P";
+                                else
+                                    letter = "S";
+
+                                var lett = new Letter(letter, true);
+                                lett.rect = new Rectangle(e.rect.x, e.rect.y, 30, 30);
+                                fallingLetters.push(lett);
+                            }
                             break LOOP;
                         }
                     }
 
                 }
 
-		//recreate enemies to continue game
-		if (enemies.length == 0) {
-		    for (var i = 0; i < 11; i++)
-			enemies[i] = new Column(i + 1, 3);
-		}
+            	//recreate enemies to continue game
+            	if (enemies.length == 0) {
+            	    for (var i = 0; i < 11; i++)
+            		enemies[i] = new Column(i + 1, 3);
+            	}
             }
         }
 
@@ -292,6 +328,42 @@ function start()
             }
         }
 
+        // FALLING LETTERS
+        for (var i = 0; i < fallingLetters.length; i++)
+        {
+            fallingLetters[i].rect.y += fallingLetters[i].speed;
+            draw(fallingLetters[i]);
+
+            if (fallingLetters[i].rect.y > canvas.height)
+            {
+                fallingLetters.splice(i, 1);
+                i--;
+            }
+            else if (!player.isDead && fallingLetters[i].rect.Intersects(player.hitbox))
+            {
+                for (var j = 0; j < letters.length; j++)
+                {
+                    if (!letters[j].filled && letters[j].fillFrame == fallingLetters[i].fillFrame)
+                    {
+                        letters[j].filled = true;
+                        letters[j].frame = letters[j].fillFrame;
+                    }
+                }
+                fallingLetters.splice(i, 1);
+                i--;
+            }
+        }
+
+        for (var i = 0; i < letters.length; i++)
+        {
+            if (!letters[i].filled) break;
+            if (i == letters.length - 1)
+            {
+                letters = [new Letter("P"), new Letter("E"), new Letter("N"), new Letter("N"), new Letter("A"), new Letter("P"), new Letter("P"), new Letter("S")];
+                score += 1700;
+            }
+        }
+
         // DISPLAY SCORE
         ctx.font = "30px geo";
         ctx.fillStyle = "white";
@@ -299,8 +371,25 @@ function start()
         ctx.fillStyle = "#00FD10";
         ctx.fillText(score, 50, 60);
 
-        // DISPLAY LIVES
+        // DISPLAY BONUS
         ctx.fillStyle = "white";
+        ctx.fillText("BONUS", 250, 35);
+        for (var i = 0; i < letters.length; i++)
+        {
+            var rect;
+            if (letters[i].filled)
+            {
+                letters[i].rect = new Rectangle(165 + 30*i, 40, 30, 30);
+
+            }
+            else
+            {
+                letters[i].rect = new Rectangle(165 + 30*i, 40, 30, 30);
+            }
+            draw(letters[i]);
+        }
+
+        // DISPLAY LIVES
         ctx.fillText("LIVES", 455, 35);
         if (lives > 0)
             draw(new Life(450, 35));

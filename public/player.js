@@ -83,3 +83,16 @@ Life = function(x, y)
     this.width = 90 / 3;
     this.height = 64 / 3;
 };
+
+Letter = function(l, falling)
+{
+    this.fillFrame = l;
+    this.emptyFrame = l + "_placeholder";
+    this.filled = falling == true;
+    this.frame = this.filled ? this.fillFrame : this.emptyFrame;
+
+    this.width = 25;
+    this.height = 25;
+
+    this.speed = 1;
+};
