@@ -18,8 +18,8 @@
 		02A726242013F6A900222741 /* arrow2.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A726212013F6A700222741 /* arrow2.png */; };
 		02A726252013F6A900222741 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A726222013F6A800222741 /* arrow.png */; };
 		02A726282013F78600222741 /* AppUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A726272013F78600222741 /* AppUtility.swift */; };
-		02A7262E20140B3D00222741 /* 8-Bit-Madness.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02A7262D20140A1400222741 /* 8-Bit-Madness.ttf */; };
 		02A7263020140BC400222741 /* power.png in Resources */ = {isa = PBXBuildFile; fileRef = 02A7262F20140BC300222741 /* power.png */; };
+		02A72632201481B400222741 /* 8-Bit-Madness.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02A72631201481A700222741 /* 8-Bit-Madness.ttf */; };
 		D068FE0E54CCDF191C99A0D5 /* Pods_Pennapps18W.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DD51109239F2D4FA3B05D4 /* Pods_Pennapps18W.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,8 +37,8 @@
 		02A726212013F6A700222741 /* arrow2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow2.png; sourceTree = "<group>"; };
 		02A726222013F6A800222741 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
 		02A726272013F78600222741 /* AppUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUtility.swift; sourceTree = "<group>"; };
-		02A7262D20140A1400222741 /* 8-Bit-Madness.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "8-Bit-Madness.ttf"; path = "../../../../../../Library/WebServer/Documents/PennApps18W/public/font/8-Bit-Madness.ttf"; sourceTree = "<group>"; };
 		02A7262F20140BC300222741 /* power.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = power.png; sourceTree = "<group>"; };
+		02A72631201481A700222741 /* 8-Bit-Madness.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "8-Bit-Madness.ttf"; path = "../../../public/font/8-Bit-Madness.ttf"; sourceTree = "<group>"; };
 		0B9828E5A0613CA899F91A6A /* Pods-Pennapps18W.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pennapps18W.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pennapps18W/Pods-Pennapps18W.release.xcconfig"; sourceTree = "<group>"; };
 		83DD51109239F2D4FA3B05D4 /* Pods_Pennapps18W.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pennapps18W.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBF24C55A5A59EFD1FBB6BF7 /* Pods-Pennapps18W.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pennapps18W.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pennapps18W/Pods-Pennapps18W.debug.xcconfig"; sourceTree = "<group>"; };
@@ -83,7 +83,7 @@
 				02A7260E201303FE00222741 /* Main.storyboard */,
 				02A7261C2013159000222741 /* ConnectViewController.swift */,
 				02A7261E201319C100222741 /* SocketIOManager.swift */,
-				02A7262D20140A1400222741 /* 8-Bit-Madness.ttf */,
+				02A72631201481A700222741 /* 8-Bit-Madness.ttf */,
 				02A726262013F6B100222741 /* images */,
 				02A72611201303FE00222741 /* Assets.xcassets */,
 				02A72613201303FE00222741 /* LaunchScreen.storyboard */,
@@ -183,7 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				02A726232013F6A900222741 /* icon.png in Resources */,
-				02A7262E20140B3D00222741 /* 8-Bit-Madness.ttf in Resources */,
+				02A72632201481B400222741 /* 8-Bit-Madness.ttf in Resources */,
 				02A726252013F6A900222741 /* arrow.png in Resources */,
 				02A726242013F6A900222741 /* arrow2.png in Resources */,
 				02A7263020140BC400222741 /* power.png in Resources */,

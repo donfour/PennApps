@@ -10,8 +10,6 @@ import UIKit
 import SocketIO
 class SocketIOManager: NSObject
 {
-//    static let url = "http://10.251.65.160:3000"
-//    static let url = "http://default-environment.jpypjm2r2p.us-east-2.elasticbeanstalk.com/"
     static let url = "http://spaceinvadertest.herokuapp.com"
     
     static let sharedInstance = SocketIOManager()

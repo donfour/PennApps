@@ -41,7 +41,7 @@ class ViewController: UIViewController
         // Do any additional setup after loading the view, typically from a nib.
         
         manager.startAccelerometerUpdates()
-        manager.accelerometerUpdateInterval = 0.05
+        manager.accelerometerUpdateInterval = 0.1
         manager.startAccelerometerUpdates(to: .main) {
             (data, error) in
             
@@ -62,6 +62,10 @@ class ViewController: UIViewController
                 {
                     let action = self.isLandscapeRight ? "right" : "left"
                     SocketIOManager.sharedInstance.sendAction(action: action)
+                }
+                else
+                {
+                    SocketIOManager.sharedInstance.sendAction(action: "constant")
                 }
             }
         }
