@@ -42,11 +42,11 @@ function setHandlers() {
 
 
 	if (value == "left") {
-	    player.currentVelocity = this.speed * -1;
+	    player.currentVelocity = player.speed * -1;
 	}
 
 	if (value == "right") {
-	    player.currentVelocity = this.speed;
+	    player.currentVelocity = player.speed;
 	}
 
 	if (value == "constant") {
@@ -54,7 +54,8 @@ function setHandlers() {
 	}
 
 	if (value == "shoot") {
-	    shootSound.play();
+        if (!player.shot)
+	       shootSound.play();
 	    player.shoot();
 	}
 
@@ -182,10 +183,9 @@ function start()
         // BACKGROUND
         background.Draw(ctx);
 
-	//MOVE PLAYER
+    	//MOVE PLAYER
+    	player.move();
 
-	player.move();
-	
         // SHIFT ENEMIES
         for (var i = 0; i < enemies.length; i++)
         {

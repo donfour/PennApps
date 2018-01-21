@@ -7,8 +7,8 @@ Player = function(x, y)
 
     this.currentVelocity = 0;
 
-    this.speed = 1;
-    
+    this.speed = 5;
+
     this.lives = 3;
     this.deathFrames = [];
     this.frame = "greenShip";
@@ -18,13 +18,14 @@ Player = function(x, y)
     this.isDead = false;
 
     this.move = function() {
-	nextRectx = this.rect.x + currentVelocity;
-	if (nextRectx < 0 || nextRectx > canvas.width) {
-	    return;
-	}
+        if (this.isDead) return;
+    	var nextRectx = this.rect.x + this.currentVelocity;
+    	if (nextRectx < 0 || nextRectx + this.rect.width > canvas.width) {
+    	    return;
+    	}
 
-	this.rect.x += currentVelocity;
-	this.hitbox.x += currentVelocity;
+    	this.rect.x += this.currentVelocity;
+    	this.hitbox.x += this.currentVelocity;
     }
 
     this.shoot = function()
