@@ -21,6 +21,7 @@ function Sound(src) {
     }
 }
 backgroundMusic = new Sound("./sound/background-music.mp3");
+backgroundMusic.sound.loop = true;
 shootSound = new Sound("./sound/shoot.wav");
 hitSound = new Sound("./sound/hit.wav");
 deathSound = new Sound("./sound/death.wav");
