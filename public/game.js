@@ -4,6 +4,28 @@ var socket = io();
 var canvas = document.getElementById("canvas"),
     ctx = canvas.getContext("2d");
 
+//setup for game sound
+var backgroundMusic, shootSound, hitSound, deathSound;
+function Sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function(){
+        this.sound.play();
+    }
+    this.stop = function(){
+        this.sound.pause();
+    }
+}
+backgroundMusic = new Sound("./sound/background-music.mp3");
+shootSound = new Sound("./sound/shoot.wav");
+hitSound = new Sound("./sound/hit.wav");
+deathSound = new Sound("./sound/death.wav");
+
+
 var gameStarted = false;
 var Draw;
 function setHandlers() {
@@ -25,6 +47,7 @@ function setHandlers() {
 	}
 
 	if (value == "shoot") {
+      shootSound.play();
 	    player.shoot();
 	}
 
@@ -92,6 +115,9 @@ function end() {
 function start()
 {
     gameStarted = true;
+
+    backgroundMusic.play();
+
     player = new Player(250, lineHeight * 13);
 
     for (var i = 0; i < 11; i++)
@@ -158,6 +184,7 @@ function start()
                         var e = col.enemies[j];
                         if (player.shot.rect.Intersects(e.hitbox))
                         {
+                            hitSound.play();
                             deaths.push(new Death(e.rect.x, e.rect.y));
                             col.enemies.splice(j, 1);
                             if (col.enemies.length == 0)
@@ -193,7 +220,8 @@ function start()
 
             if (!player.isDead && enemyShots[i].rect.Intersects(player.rect))
             {
-		socket.emit("sendAction", "vibrate");
+                deathSound.play();
+		            socket.emit("sendAction", "vibrate");
                 player.isDead = true;
                 lives--;
                 deaths.push(new PlayerDeath(player.rect.x, player.rect.y - player.rect.height/2));
