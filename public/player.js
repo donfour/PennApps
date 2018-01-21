@@ -5,8 +5,10 @@ Player = function(x, y)
     this.rect = new Rectangle(x, y, this.width, this.height, new Color(255, 0, 0));
     this.hitbox = new Rectangle(x + 10, y + 10, this.width - 20, this.height - 20);
 
-    this.speed = 10;
+    this.currentVelocity = 0;
 
+    this.speed = 1;
+    
     this.lives = 3;
     this.deathFrames = [];
     this.frame = "greenShip";
@@ -15,23 +17,15 @@ Player = function(x, y)
 
     this.isDead = false;
 
-    this.left = function()
-	{
-		if (this.rect.x > 0)
-        {
-			this.rect.x -= this.speed;
-            this.hitbox.x -= this.speed;
-        }
-	};
+    this.move = function() {
+	nextRectx = this.rect.x + currentVelocity;
+	if (nextRectx < 0 || nextRectx > canvas.width) {
+	    return;
+	}
 
-    this.right = function()
-	{
-		if (this.rect.x + this.rect.width < canvas.width)
-        {
-			this.rect.x += this.speed;
-            this.hitbox.x += this.speed;
-        }
-	};
+	this.rect.x += currentVelocity;
+	this.hitbox.x += currentVelocity;
+    }
 
     this.shoot = function()
     {
