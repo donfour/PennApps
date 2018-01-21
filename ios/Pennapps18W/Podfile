@@ -1,0 +1,5 @@
+use_frameworks!
+
+target 'Pennapps18W' do
+    pod 'Socket.IO-Client-Swift', '~> 13.1.0'
+end
