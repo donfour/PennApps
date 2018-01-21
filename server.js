@@ -107,6 +107,7 @@ function disconnectHelper(client) {
 	io.to(computerId).emit('phoneDisconnected');
 	delete iosToClientMap[client.id];
 	delete clientToIosMap[computerId];
+	deleteCode(computerId);
     }
 
     if (client.id in clientToIosMap) {
