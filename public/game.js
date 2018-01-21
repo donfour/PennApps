@@ -100,8 +100,8 @@ manager.downloadAll(function() {
 function end() {
     gameStarted = false;
     var endMenu = document.getElementsByClassName("end");
-        for (var el of endMenu)
-            el.style.display = "block";
+    for (var el of endMenu)
+        el.style.display = "block";
     canvas.style.display = "none";
     clearInterval(Draw);
     document.getElementById("score").innerHTML = score;
@@ -109,8 +109,8 @@ function end() {
 
 function restart() {
     var endMenu = document.getElementsByClassName("end");
-        for (var el of endMenu)
-            el.style.display = "none";
+    for (var el of endMenu)
+        el.style.display = "none";
     canvas.style.display = "block";
     init();
     start();
