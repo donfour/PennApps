@@ -60,7 +60,13 @@ function setHandlers() {
             el.style.display = "none";
 
         canvas.style.display = "block";
+	init();
         start();
+    });
+
+    socket.on("phoneDisconnected", function() {
+	alert("Sorry.  Your phone seems to have disconnected");
+	window.location.href = "";
     });
 }
 
@@ -87,14 +93,27 @@ var images = [
 for (var i=0; i < images.length; i++)
     manager.queueDownload("img/" + images[i] + ".png");
 
-var player = new Player(250, lineHeight * 13),
-    background = new Rectangle(0, 0, canvas.width, canvas.height, new Color(0, 0, 0)),
-    enemies = [],
-    deaths = [],
-    enemyShots = [],
-    dir = "right",
-    score = 0,
+var player,
+    background,
+    enemies,
+    deaths,
+    enemyShots,
+    dir,
+    score,
+    lives,
+    countSinceStart;
+
+function init() {
+    player = new Player(250, lineHeight * 13);
+    background = new Rectangle(0, 0, canvas.width, canvas.height, new Color(0, 0, 0));
+    enemies = [];
+    deaths = [];
+    enemyShots = [];
+    dir = "right";
+    score = 0;
     lives = 3;
+    countSinceStart = 0;
+}
 
 manager.downloadAll(function() {
 
@@ -109,6 +128,15 @@ function end() {
     canvas.style.display = "none";
     clearInterval(Draw);
     document.getElementById("score").innerHTML = score;
+}
+
+function restart() {
+    var endMenu = document.getElementsByClassName("end");
+        for (var el of endMenu)
+            el.style.display = "none";
+    canvas.style.display = "block";
+    init();
+    start();
 }
 
 
@@ -194,19 +222,18 @@ function start()
                             break LOOP;
                         }
                     }
+
                 }
+
+		//recreate enemies to continue game
+		if (enemies.length == 0) {
+		    for (var i = 0; i < 11; i++)
+			enemies[i] = new Column(i + 1, 3);
+		}
             }
         }
 
         // ENEMY FIRE
-        var random = Math.random();
-        if (!player.isDead && random < 0.02)
-        {
-            var index = Math.floor(Math.random() * enemies.length),
-                enemy = enemies[index].enemies[enemies[index].enemies.length - 1];
-            enemyShots.push(new Shot(enemy.rect.x, enemy.rect.y));
-        }
-
         for (var i = 0; i < enemyShots.length; i++)
         {
             enemyShots[i].rect.y += enemyShots[i].speed;
@@ -218,7 +245,7 @@ function start()
                 continue;
             }
 
-            if (!player.isDead && enemyShots[i].rect.Intersects(player.rect))
+            if (!player.isDead && enemyShots[i].rect.Intersects(player.hitbox))
             {
                 deathSound.play();
 		            socket.emit("sendAction", "vibrate");
@@ -231,6 +258,18 @@ function start()
             }
 
             draw(enemyShots[i]);
+        }
+
+        countSinceStart++;
+        if (countSinceStart > 100)
+        {
+            var random = Math.random();
+            if (!player.isDead && random < 0.02)
+            {
+                var index = Math.floor(Math.random() * enemies.length),
+                    enemy = enemies[index].enemies[enemies[index].enemies.length - 1];
+                enemyShots.push(new Shot(enemy.rect.x, enemy.rect.y));
+            }
         }
 
         // DEATHS
@@ -304,7 +343,7 @@ function draw(obj)
 
         // if (obj.hitbox)
         // {
-        //     ctx.fillStyle = "green";
+        //     ctx.fillStyle = "red";
         //     ctx.fillRect(obj.hitbox.x, obj.hitbox.y, obj.hitbox.width, obj.hitbox.height);
         // }
     }
