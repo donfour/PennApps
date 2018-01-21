@@ -11,3 +11,13 @@ It was exciting to watch our work on the backend create a seamless connection be
 
 ## What's next for Space Invaders 2018
 (Space Invaders 2019??) We hope to integrate our game controller with other games and to eventually create a universal platform for motion-based phone controllers.
+
+## How to run it
+
+After installing all the dependencies with npm simply run `node server.js` to start up the node.js server.
+
+The game (html and javascript) will be served up by the server.
+
+To run the iOS app, open the iOS project in XCode and build the project for your device. Make sure to change the `url` property in `SocketIOManager.swift` to the corresponding URL served by the node.js.
+
+Finally, enjoy the game!
