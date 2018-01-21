@@ -195,7 +195,14 @@ function start()
                             break LOOP;
                         }
                     }
+
                 }
+
+		//recreate enemies to continue game
+		if (enemies.length == 0) {
+		    for (var i = 0; i < 11; i++)
+			enemies[i] = new Column(i + 1, 3);
+		}
             }
         }
 
