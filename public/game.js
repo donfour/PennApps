@@ -116,7 +116,8 @@ var player,
     lives,
     countSinceStart,
     letters,
-    fallingLetters;
+    fallingLetters,
+    bonusCounter;
 
 function init() {
     player = new Player(250, lineHeight * 13);
@@ -130,6 +131,7 @@ function init() {
     countSinceStart = 0;
     letters = [new Letter("P"), new Letter("E"), new Letter("N"), new Letter("N"), new Letter("A"), new Letter("P"), new Letter("P"), new Letter("S")];
     fallingLetters = [];
+    bonusCounter = -1;
 }
 
 manager.downloadAll(function() {
@@ -199,6 +201,18 @@ function start()
                 col.shift("down");
         }
 
+        for (var i = 0; i < enemies.length; i++)
+        {
+            var col = enemies[i],
+                e = col.enemies[col.enemies.length - 1];
+
+            if (e.rect.y + e.rect.height >= lineHeight * 13)
+            {
+                socket.emit("sendAction", "vibrate");
+                end();
+            }
+        }
+
         // DRAW ENEMIES
         for (var i = 0; i < enemies.length; i++)
             for (var j = 0; j < enemies[i].enemies.length; j++)
@@ -239,7 +253,7 @@ function start()
                             score += e.score;
 
                             var random = Math.random();
-                            if (random < 0.5)
+                            if (random < 0.2)
                             {
                                 random = Math.random();
                                 var letter;
@@ -365,7 +379,10 @@ function start()
             {
                 letters = [new Letter("P"), new Letter("E"), new Letter("N"), new Letter("N"), new Letter("A"), new Letter("P"), new Letter("P"), new Letter("S")];
                 score += 1700;
+                bonusCounter = 0;
+                backgroundMusic.stop();
                 allLettersSound.play();
+                setTimeout(function(){backgroundMusic.play();}, 3000);
             }
         }
 
@@ -394,7 +411,17 @@ function start()
             draw(letters[i]);
         }
 
+        ctx.fillStyle = "yellow";
+        if (bonusCounter >= 0)
+        {
+            bonusCounter++;
+            ctx.fillText("BONUS! +1700 PTS", 180, 110);
+            if (bonusCounter >= 95)
+                bonusCounter = -1;
+        }
+
         // DISPLAY LIVES
+        ctx.fillStyle = "white";
         ctx.fillText("LIVES", 455, 35);
         if (lives > 0)
             draw(new Life(450, 35));

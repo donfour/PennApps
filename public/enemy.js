@@ -5,13 +5,6 @@ Enemy = function(type, x, y)
     this.frameNum = 0;
     this.rect = new Rectangle(x * lineHeight, y * lineHeight, lineHeight, lineHeight, new Color(0, 0, 255));
 
-    // if (type == "invader1Position1")
-    //     this.width = 64;
-    // else if (type == "invader2Position1")
-    //     this.width = 88;
-    // else
-    //     this.width = 96;
-
     this.width = 100 / 3;
     this.height = 64 / 3;
 
@@ -80,8 +73,8 @@ Column = function(x, y)
             }
             else
             {
-                e.rect.y += this.speed * 4;
-                e.hitbox.y += this.speed * 4;
+                e.rect.y += this.speed * 8;
+                e.hitbox.y += this.speed * 8;
             }
         }
     };

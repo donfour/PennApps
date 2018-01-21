@@ -82,9 +82,6 @@ function sendCodeHelper(code, client) {
 }
 
 function actionHelper(value, client) {
-    console.log(value);
-
-    //socket ids are unique
 
     //send to computer
     if (client.id in iosToClientMap) {
