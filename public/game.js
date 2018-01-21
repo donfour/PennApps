@@ -42,15 +42,19 @@ function setHandlers() {
 
 
 	if (value == "left") {
-	    player.left();
+	    player.currentVelocity = this.speed * -1;
 	}
 
 	if (value == "right") {
-	    player.right();
+	    player.currentVelocity = this.speed;
+	}
+
+	if (value == "constant") {
+	    player.currentVelocity = 0;
 	}
 
 	if (value == "shoot") {
-      shootSound.play();
+	    shootSound.play();
 	    player.shoot();
 	}
 
@@ -178,6 +182,10 @@ function start()
         // BACKGROUND
         background.Draw(ctx);
 
+	//MOVE PLAYER
+
+	player.move();
+	
         // SHIFT ENEMIES
         for (var i = 0; i < enemies.length; i++)
         {
